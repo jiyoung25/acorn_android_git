@@ -1,0 +1,34 @@
+package com.example.step04activitymove;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
+public class GermanActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_german);
+        
+        //익명 클래스를 이용해서 View.OnClickLister type의  참조값 얻어내기
+        /*
+        View.OnClickListener listener = new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        };
+        findViewById(R.id.finishBtn).setOnClickListener(listener);
+         */
+
+        findViewById(R.id.finishBtn).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //이 방법이 제일 간단.
+            }
+        });
+    }
+}
