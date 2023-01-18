@@ -1,0 +1,32 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "MyAndroid2"
+include ':step01activity2'
+include ':step02layout'
+include ':step03view'
+include ':step04activitymove'
+include ':step04activitymove:kotlinactivity'
+include ':kotlin_test'
+include ':step05listview'
+include ':step04_practice'
+include ':step05example'
+include ':step06customadapter'
+include ':kotlin_test_practice'
+include ':step07fragment'
+include ':step07fragment2'
+include ':step08viewbinding'
+include ':spet09customview'
+include ':step09customview'
+include ':step09gameview'
