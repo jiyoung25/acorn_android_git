@@ -9,8 +9,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAndroid2">
         <activity
-            android:name=".GameActivity"
-            android:exported="false" />
+            android:name=".SubActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">

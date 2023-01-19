@@ -1,16 +1,15 @@
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    namespace 'com.example.step09gameview'
-    compileSdk 33
+    namespace 'com.example.step01activity'
+    compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.step09gameview"
+        applicationId "com.example.step01activity"
         minSdk 21
-        targetSdk 33
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 

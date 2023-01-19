@@ -2,19 +2,35 @@ package com.example.step09gameview;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //gameView객체를 생성해서
-        GameView view = new GameView(this);
+        setContentView(R.layout.activity_main);
 
-        //MainActivity의 화면을 GameView로 모두 채운다.
-        setContentView(view);
-        //보통 setContentView에는 R.layout.activity_main이 들어있지만, 내가 만든 custom view를 화면에 꽉 채울 수도 있다.
+        Button startBtn = findViewById(R.id.startBtn);
+        //게임 시작 버튼을 누르면
+        startBtn.setOnClickListener(view ->{
+            //game 액티비티로 이동해서 게임이 시작되게 한다.
+            Intent i = new Intent(MainActivity.this, GameActivity.class);
+            startActivity(i);
+        });
+
+        //소리를 재생할 준비를 한다,
+        SoundManager sm = new SoundManager(this);
+        sm.addSound(1, R.raw.birddie);
+        sm.addSound(2, R.raw.laser1);
+        sm.addSound(3, R.raw.shoot1);
+
+        Button playBtn = findViewById(R.id.playBtn);
+        playBtn.setOnClickListener(view->{
+            sm.playSound(3);
+        });
     }
 
 
