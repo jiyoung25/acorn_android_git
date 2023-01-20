@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         //View view에는 눌러진 Button 객체의 참조값이 들어있다.
+        //만일 해당 참조값이 toCanada 라는 필드에 있는 값과 같다면 Canada 로 가기 버튼을 누른 것이다.
         /*
         if(view == toCanada) {
             //Button의 부모타입은 View이므로 view와 toCanada의 참조값을 비교하는 것이 가능하다.

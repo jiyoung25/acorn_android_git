@@ -28,6 +28,7 @@ public class GermanActivity extends AppCompatActivity {
         findViewById(R.id.finishBtn).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 //이 방법이 제일 간단.
+                finish();
             }
         });
     }

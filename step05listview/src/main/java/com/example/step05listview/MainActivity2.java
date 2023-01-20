@@ -37,6 +37,9 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
             names.add("아무개"+i);
         }
 
+
+        //ListView 에 연결할 아답타 객체
+        // new ArrayAdapter<>( Context , layout resource , 모델 )
         //simple_list_item_1 : list view에 올릴 model들(여기선 List<String>)의 하나하나의 layout을 담당한다.
         adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
@@ -57,6 +60,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         Toast.makeText(this,name,Toast.LENGTH_SHORT).show();
     }
 
+    //DialogInterface.OnClickListener type 필드
     DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
@@ -71,6 +75,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         }
     };
 
+    //롱 클릭된 인덱스를 저장할 필드
     int selectedIndex;
 
     @Override

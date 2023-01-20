@@ -57,8 +57,6 @@ public class GameView extends View {
     //적기가 만들어진 이후 count
     int postCount;
 
-
-
     //미사일 객체를 저장할 list
     List<Missile> missList = new ArrayList<>();
     //미사일의 크기
@@ -67,6 +65,8 @@ public class GameView extends View {
     Bitmap[] missImgs = new Bitmap[3];
     //미사일의 속도
     int speedMissile;
+    //효과음을 재생해주는 객체
+    SoundManager soundManager;
     
     //생성자1
     public GameView(Context context) {
@@ -75,6 +75,11 @@ public class GameView extends View {
     //생성자2
     public GameView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    //SoundManager객체를 전달받아서 필드에 저장하는 메소드
+    public void setSoundManager(SoundManager soundManager) {
+        this.soundManager = soundManager;
     }
 
     //초기화 메소드
@@ -267,7 +272,10 @@ public class GameView extends View {
                         m.x < e.x + unitSize/2 &&
                         m.y > e.y - unitSize/2 &&
                         m.y < e.y +unitSize/2;
-                if(isStrike && !e.isFall){
+
+                if(isStrike && !e.isFall){//현재 추락 중인 적기는 무시하기
+                    //효과음 재생
+                    soundManager.playSound(GameActivity.SOUND_SHOOT);
                     //적기의 에너지를 줄이고
                     e.energy -=50;
                     //미사일을 없앤다
@@ -289,6 +297,8 @@ public class GameView extends View {
         //미사일 만들기
         //테스트로 미사일객체 한개를 배열에 넣어두기
         if(count%2 == 0) {
+            //미사일 발사음 재생
+            soundManager.playSound(GameActivity.SOUND_LAZER);
             missList.add(new Missile(dragonX-missSize/2, dragonY));
         }
 
