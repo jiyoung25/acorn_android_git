@@ -28,6 +28,7 @@ public class CountryAdapter extends BaseAdapter {
     }
 
     public CountryAdapter(Context context, int layoutRes, List<CountryDto> list) {
+        //생성자의 인자로 전달된 값을 필드에 저장한다.
         this.context = context;
         this.layoutRes = layoutRes;
         this.list = list;

@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.step08viewbinding"
-        minSdk 21
+        minSdk 24
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -26,9 +26,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    
-    //view binding을 사용하기 위한 설정
-    buildFeatures{
+
+    buildFeatures {
         viewBinding = true
     }
 }

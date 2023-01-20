@@ -57,33 +57,30 @@ public class BlankFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    //FragmentBlankbinding binding;
+    //바인딩 객체를 저장할 필드
     FragmentBlankBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //view binding을 이용하려면 아래와 같이 코딩해야 한다.
-        binding = FragmentBlankBinding.inflate(inflater, container, false);
-        //fragment_blank.xml 문서 => FragmentBlankBinding 클래스
-        binding = FragmentBlankBinding.inflate(inflater,container,false);
-        View view = binding.getRoot();
+        // view binding 을 이용하려면 아래와 같이 코딩해야 한다.
+
+        // fragment_blank.xml  문서 =>   FragmentBlankBinding  클래스
+        binding= FragmentBlankBinding.inflate(inflater, container, false);
+        View view=binding.getRoot();
+
+        //만일 fragment_blank.xml 문서에 myTextView 라는 아이디를 가지고 있는 TextView 의 참조값이 필요하다면.
+        TextView a = binding.myTextView; //이렇게 참조하면 된다...
 
         return view;
     }
-
-    //만일 fragment_blank.xml문서에 myTextView라는ㄴ 아이디를 가지고 있는 TextView의 참조값이 필요하다면
-    TextView a = binding.myTextView; //이렇게 참조하기
-
-
-
-    //프래그먼트가 레이아웃으로 가지고 있는 뷰가 파개될 때 호출되는 메소드
+    //프레그 먼트가 레이아웃으로 가지고 있는 뷰가 파괴될때 호출되는 메소드
     @Override
-    public void onDestroyView( ){
+    public void onDestroyView() {
         super.onDestroyView();
-        // 객체의 참조를 해제해서 메모리를 효율적으로 사용하도록 한다.
-        binding = null;
-        //프래그먼트보다 뷰가 더 오래 살아남기 때문에 fragment는 사용되지 않는데
-        //뷰만 메모리에 남아있는 것얼 방지하는 효과가 된다.
+        //FragmentBlankBinding 객체의 참조를 해제해서 메모리를 효율적으로 사용하도록 한다.
+        binding=null;
+        //프레그먼트 보다 뷰가 더 오래 살아 남기때문에 프레그먼트는 사용되지 않는데
+        //뷰만 메모리에 남아 있는것을 방지하는 효과가 된다.
     }
 }

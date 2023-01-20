@@ -28,11 +28,16 @@ public class PlaceholderFragment extends Fragment {
 
     //프래그먼트 하나를 리턴해 놓은 메소드
     //인자로 전달하는 index에 해당되는 새 Fragment(PlaceholderFragment)객체를 리턴하는 메소드
-    public static PlaceholderFragment newInstance(int index) {
+    public static PlaceholderFragment newInstance(String ownerName) {
+        //프래그먼트 객체를 생성하고
         PlaceholderFragment fragment = new PlaceholderFragment();
+        //bundle객체를 생성해서
         Bundle bundle = new Bundle();
-        bundle.putInt(ARG_SECTION_NUMBER, index);
+        //ownerName이라는 키값으로 전달된 이름을 담고
+        bundle.putString("ownerName",ownerName);
+        //Fragment에 전달하고
         fragment.setArguments(bundle);
+        //해당 Fragment객체를 리턴한다.
         return fragment;
     }
 
@@ -41,11 +46,14 @@ public class PlaceholderFragment extends Fragment {
         super.onCreate(savedInstanceState);
         //PageViewModel을 사용할 준비하기
         pageViewModel = new ViewModelProvider(this).get(PageViewModel.class);
-        int index = 1;
-        if (getArguments() != null) {
-            index = getArguments().getInt(ARG_SECTION_NUMBER);
-        }
-        pageViewModel.setIndex(index);
+
+        //Fragment에 전달받은 인자(Bundle)를 얻어낸다.
+        Bundle bundle = getArguments();
+        //bundle객체에 "ownerName"이라는 키값으로 담겨있는 이름을 얻어낸다.
+        String ownerName = bundle.getString("ownerName");
+
+        pageViewModel.setOwnerName(ownerName);
+
     }
 
     @Override
@@ -59,7 +67,11 @@ public class PlaceholderFragment extends Fragment {
         
         //TextView의 참조값을 얻어와서
         final TextView textView = binding.sectionLabel;
+        //PageViewModel이 가지고 있는 데이터를 관찰하고 있다가 혹시 변경이 되면 UI를 업데이트할 옵저버 등록
+        //단, 이 view의 주인(Fragment 혹은 Activity)가 활성화된 상태에서만 동작하겠다는 의미
+
         //view모델 출력
+        //가공된 문자열이 들어온다.
         pageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -68,6 +80,15 @@ public class PlaceholderFragment extends Fragment {
             }
 
         });
+
+        //버튼을 눌렀을 때 동작할 리스터 등록
+        binding.changeBtn.setOnClickListener(view->{
+            //임력한 이름을 읽어와서
+            String newName = binding.inputName.getText().toString();
+            //pageViewModel이 가지고있는 어쩌구에 업데이트한다.
+            pageViewModel.setOwnerName(newName);
+        });
+
         return root;
     }
 
