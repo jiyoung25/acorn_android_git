@@ -1,14 +1,18 @@
 package com.example.step13sharedpref
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 
 /*
     App에서 문자열을 영구적으로 저장하는 방법 (영구저장이란, 앱을 종료하고 다시 시작해도 불러올 수 있는 문자열 )
@@ -38,7 +42,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener { //extends AppCo
         //saveBtn객체의 참조값 얻어오기
         val saveBtn:Button = findViewById(R.id.saveBtn)
         saveBtn.setOnClickListener(this)
-        val readBtn = findViewById<Button>(R.id.readBtn)
+
         /*
         readBtn.setOnClickListener (object:View.OnClickListener{
             override fun onClick(v: View?) {
@@ -47,6 +51,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener { //extends AppCo
         })
         */
         //위의 코드를 간략히 표현하면 아래와 같다.
+        val readBtn = findViewById<Button>(R.id.readBtn)
         readBtn.setOnClickListener {
             val pref:SharedPreferences = getSharedPreferences("info", Context.MODE_PRIVATE)
             //"msg"라는 키값으로 저장된 문자열 읽어오기, 없다면 defValue값이 읽어와진다.
@@ -68,6 +73,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener { //extends AppCo
             Toast.makeText(this, msg, Toast.LENGTH_SHORT ).show()
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        //액티비티가 활성화되는 시점에 설정에 저장된 값을 읽어오고 싶다면 여기에서 작업하면 된다.
+        val signature = pref.getString("signature","")
+        val reply = pref.getString("reply","")
+        val sync = pref.getBoolean("sync", false)
+
+        Toast.makeText(this, "signature: ${signature}, reply: ${reply}, sync:${sync}", Toast.LENGTH_SHORT).show()
+    }
     
     //저장 버튼을 누르면 호출되는 메소드
     override fun onClick(v: View?) {
@@ -86,5 +103,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener { //extends AppCo
                 .setNeutralButton("확인", null)
                 .create()
                 .show()
+    }
+
+    //옵션 메뉴를 구성하는 메소드
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //menu/menu_main.xml문서를 전개해서 메뉴 구성하기
+        //in java =>getMenuInflater().inflate();
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+    //옵션 아이템을 선택했을 때 호출되는 메소드
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        //선택한 메뉴의 아이디 읽어오기
+        val id = item.itemId
+        //만일 설정 메뉴를 선택했다면
+        if(id == R.id.setting){
+            //kotlin에서 특정 클래스 type은 class명::class.java라고 해야 한다.
+            val intent = Intent(this, SettingsActivity::class.java)
+            //SettingActivity를 시작하겠다는 의도를 가지고 있는 Intent객체를 이용해서
+            //Activity시작시키기
+            startActivity(intent)
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -68,8 +68,8 @@ public class BlankFragment extends Fragment {
         // fragment_blank.xml  문서 =>   FragmentBlankBinding  클래스
         binding= FragmentBlankBinding.inflate(inflater, container, false);
         View view=binding.getRoot();
-
-        //만일 fragment_blank.xml 문서에 myTextView 라는 아이디를 가지고 있는 TextView 의 참조값이 필요하다면.
+        //
+        //        //만일 fragment_blank.xml 문서에 myTextView 라는 아이디를 가지고 있는 TextView 의 참조값이 필요하다면.
         TextView a = binding.myTextView; //이렇게 참조하면 된다...
 
         return view;
