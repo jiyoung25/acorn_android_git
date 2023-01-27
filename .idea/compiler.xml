@@ -4,6 +4,7 @@
     <bytecodeTargetLevel target="1.7">
       <module name="fail1" target="11" />
       <module name="MyAndroid2.deletemodule" target="11" />
+      <module name="MyAndroid2.step16asynctask" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
