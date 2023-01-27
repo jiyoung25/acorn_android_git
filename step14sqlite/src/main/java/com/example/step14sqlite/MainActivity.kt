@@ -1,15 +1,15 @@
 package com.example.step14sqlite
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
+import android.widget.AdapterView.OnItemLongClickListener
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity(), OnClickListener {
+class MainActivity : AppCompatActivity(), OnClickListener, OnItemLongClickListener {
     
     //필요한 필드 정의하기
 
@@ -39,6 +39,8 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         //listView동작 준비하고, 할 일 목록 출력하기
         adapter = TodoAdapter(this, R.layout.listview_cell, list )
         listView.adapter = adapter
+
+        listView.setOnItemLongClickListener(this)
     }
 
 
@@ -58,6 +60,38 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         //7. Toast띄우기
         Toast.makeText(this, "저장했습니다", Toast.LENGTH_SHORT).show()
         inputText.setText("")
+
+        //8. ListView의 가장 아래쪽이 화면에 보일 수 있도록 부드럽게 스크롤 시키기
+        listView.smoothScrollToPosition(adapter.count)
     }
 
+    override fun onItemLongClick(
+        parent: AdapterView<*>?,
+        view: View?,
+        position: Int,
+        id: Long
+    ): Boolean {
+        // 여기서 position 은 클릭한 cell 의 인덱스
+        // 여기서 id 는 클릭한 cell 의 아이디 ( Todo 의 primary key )
+        // id 에 전달되는 값은 TodoAdapter 의  getItemId() 메소드에서 리턴한 값
+
+        AlertDialog.Builder(this)
+            .setTitle("알림")
+            .setMessage("삭제 하시겠습니까?")
+            .setPositiveButton("네", DialogInterface.OnClickListener { dialog, which ->
+                val dao=TodoDao(helper)
+                dao.delete(id.toInt())
+                //목록을 새로 얻어와서
+                val list=TodoDao(helper).getList()
+                //아답타에 넣어주고
+                adapter.list=list
+                //모델의 내용이 바뀌었다고 아답타에 알려서 ListView 가 업데이트 되도록 한다.
+                adapter.notifyDataSetChanged()
+            })
+            .setNegativeButton("아니요", null)
+            .create()
+            .show()
+
+        return false
+    }
 }
