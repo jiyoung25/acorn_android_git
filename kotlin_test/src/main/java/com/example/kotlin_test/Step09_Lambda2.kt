@@ -50,6 +50,7 @@ fun main(){
     val d:(String)->String = fun(name:String):String{
         return "내 이름은 ${name}"
     }
+    println(d("지수"))
 
     //위를 아래와 같이 줄일수 있다.
     val e:(String)->String =  { name -> "내이름은 ${name}" }
@@ -60,8 +61,6 @@ fun main(){
         //인자로 전달 받은 함수 호출하기
         f()
     }
-
-
 
     fun useDrill(d:Drill){
         d.hole()
