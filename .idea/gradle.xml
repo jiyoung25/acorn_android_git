@@ -39,6 +39,7 @@
             <option value="$PROJECT_DIR$/step16asynctask" />
             <option value="$PROJECT_DIR$/step17httprequest" />
             <option value="$PROJECT_DIR$/step17httprequest2" />
+            <option value="$PROJECT_DIR$/step17httprequest3_kotlin" />
           </set>
         </option>
       </GradleProjectSettings>
