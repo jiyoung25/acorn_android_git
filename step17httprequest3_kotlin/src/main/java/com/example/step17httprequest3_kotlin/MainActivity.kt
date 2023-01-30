@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import org.json.JSONArray
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity(), Util.RequestListener {
@@ -30,6 +31,10 @@ class MainActivity : AppCompatActivity(), Util.RequestListener {
             //중간 mapOf("msg" to msg): "msg"라는 키값으로 입력한 메시지들 담은 Map
             Util.sendPostRequest(999, "http://192.168.0.33:9000/boot07/api/send", mapOf("msg" to msg), this)
         }
+
+        findViewById<Button>(R.id.getListBtn).setOnClickListener{
+            Util.sendGetRequest(888, "http://192.168.0.33:9000/boot07/api/list", mapOf("pageNum" to "1"), this)
+        }
     }
 
     override fun onSuccess(requestId: Int, result: Map<String, Any?>?) {
@@ -43,6 +48,16 @@ class MainActivity : AppCompatActivity(), Util.RequestListener {
             val num = obj.getInt("num")
             val isSuccess = obj.getBoolean("isSuccess")
             Log.e("real?", response+num+isSuccess)
+        } else if(requestId == 888){
+            var jsonStr = result?.get("data").toString()
+            Log.d("###JSON 문자열###", jsonStr)
+            val arr:JSONArray = JSONArray(jsonStr)
+
+            //반복문 돌면서 i값을 0에서부터 JSONArray의 방의 사이즈(-1)까지 변화시킨다.
+            for(i in 0 until arr.length()){
+                val tmp = arr.getString(i)
+                Log.e("array${i}", tmp)
+            }
         }
     }
 

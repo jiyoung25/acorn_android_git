@@ -20,4 +20,10 @@
         android:id="@+id/sendBtn"
         android:text="전송" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/getListBtn"
+        android:text="목록 받아오기"/>
+
   </LinearLayout>
