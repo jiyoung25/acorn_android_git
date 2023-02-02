@@ -5,6 +5,7 @@
       <module name="fail1" target="11" />
       <module name="MyAndroid2.deletemodule" target="11" />
       <module name="MyAndroid2.spep09customview" target="11" />
+      <module name="MyAndroid2.step11bottomnavi_practice" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
