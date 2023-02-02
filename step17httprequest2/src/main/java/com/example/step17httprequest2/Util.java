@@ -30,7 +30,7 @@ public class Util {
         if(activity.getCurrentFocus()==null)return;
         iManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
     }
-    //메소드의 인자로 전달되는 View 객체의 포커스 해제하는 메소드
+    //메소드의 인자로 전달되는 View 객체의 포커스 해제하는 메소드 EditTtext의 커서의 포커스 해제
     public static void releaseFocus(View view) {
         ViewParent parent = view.getParent();
         ViewGroup group = null;
@@ -53,7 +53,7 @@ public class Util {
         public void onFail(int requestId, Map<String, Object> result);
     }
     /*
-        1. 사용할때 RequestListener 인터페이스 Type 을 전달한다.
+        1. 사용할 때 RequestListener 인터페이스 Type 을 전달한다.
         2. 결과는 RequestListener 객체에 전달된다.
         3. Map<String,Object>  에서 응답 코드는
             "code" 라는 키값으로 200, 404, 500, -1 중에 하나가 리턴되고
