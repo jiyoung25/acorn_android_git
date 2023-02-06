@@ -32,23 +32,19 @@ class MainActivity : AppCompatActivity(), Util.RequestListener, View.OnClickList
     lateinit var adapter: TodoAdapter
     lateinit var listView: ListView
     lateinit var list:MutableList<TodoDto>
-    //자주 사용하는 문자열은 static final상수로 만들어두고 사용하면 편하다.
-    val BASE_URL:String = "http://192.168.0.33:9000/boot07"
-    val url = BASE_URL +"/api/todo/list"
-    val REQUEST_TODO_LIST:Int = 1000
-    val REQUEST_TODO_INSERT:Int = 1001
-    val REQUEST_TODO_DELETE:Int = 1002
-    lateinit var binding:ActivityMainBinding
+
+    lateinit var binding: ActivityMainBinding
+    val con:AppConstants = AppConstants()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         //R.layout.activity_main.xml 문서를 전개해서 View만들기
         binding = ActivityMainBinding.inflate(layoutInflater)
         //전개된 Layout에서 root를 얻어내어 화면을 구성한다.(여기서는 LinearLayout이다.)
         setContentView(binding.root)
 
-        Util.sendPostRequest(REQUEST_TODO_LIST, url, null, this)
+        val url = con.BASE_URL +"/api/todo/list"
+        Util.sendPostRequest(con.REQUEST_TODO_LIST, url, null, this)
         list = mutableListOf()
         listView = findViewById(R.id.listView)
 
@@ -60,11 +56,10 @@ class MainActivity : AppCompatActivity(), Util.RequestListener, View.OnClickList
         val addBtn:Button = binding.addBtn
         addBtn.setOnClickListener(this)
         listView.onItemLongClickListener=this
-
     }
 
     override fun onSuccess(requestId: Int, result: Map<String, Any?>?) {
-        if(requestId == REQUEST_TODO_LIST){
+        if(requestId == con.REQUEST_TODO_LIST){
             val jsonStr:String = result?.get("data").toString()
 
             val jarr = JSONArray(jsonStr)
@@ -76,51 +71,50 @@ class MainActivity : AppCompatActivity(), Util.RequestListener, View.OnClickList
             }
             adapter.list = list
             adapter.notifyDataSetChanged()
-        } else if(requestId == REQUEST_TODO_INSERT){
+        } else if(requestId == con.REQUEST_TODO_INSERT){
             //list초기화
             list.clear()
 
             //리스트 정보 다시 불러오기
-            val url2 = BASE_URL+"/api/todo/list"
-            Util.sendPostRequest(REQUEST_TODO_LIST, url2, null, this)
-        } else if(requestId == REQUEST_TODO_DELETE){
+            val url2 = con.BASE_URL+"/api/todo/list"
+            Util.sendPostRequest(con.REQUEST_TODO_LIST, url2, null, this)
+        } else if(requestId == con.REQUEST_TODO_DELETE){
             //list초기화
             list.clear()
 
             //리스트 정보 다시 불러오기
-            val url2 = BASE_URL+"/api/todo/list"
-            Util.sendPostRequest(REQUEST_TODO_LIST, url2, null, this)
+            val url2 = con.BASE_URL+"/api/todo/list"
+            Util.sendPostRequest(con.REQUEST_TODO_LIST, url2, null, this)
         }
     }
-
     override fun onFail(requestId: Int, result: Map<String, Any?>?) {
     }
 
     override fun onClick(v: View?) {
         val inputText:EditText = binding.inputText
         val content = inputText.text.toString()
-        val url:String = BASE_URL+"/api/todo/insert"
-        Util.sendPostRequest(REQUEST_TODO_INSERT, url, mapOf("content" to content), this)
+        val url:String = con.BASE_URL+"/api/todo/insert"
+        Util.sendPostRequest(con.REQUEST_TODO_INSERT, url, mapOf("content" to content), this)
         inputText.setText("")
     }
 
     override fun onItemLongClick(
         parent: AdapterView<*>?,
-        view: View?,
-        position: Int,
-        id: Long
+        view: View?,//클릭한 cell의 View
+        position: Int, //클릭한 cell의 index
+        id: Long //TodoAdapter가 return한 itemId가 이 값이다.
     ): Boolean {
         val builder:AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setTitle("알림")
             .setMessage("삭제하시겠습니까?")
             .setPositiveButton("예", DialogInterface.OnClickListener { dialog, which ->
-                val url:String = BASE_URL+"/api/todo/delete"
-                Util.sendPostRequest(REQUEST_TODO_DELETE, url, mapOf("num" to "${id}"), this)
+                val url:String = con.BASE_URL+"/api/todo/delete"
+                Util.sendPostRequest(con.REQUEST_TODO_DELETE, url, mapOf("num" to "${id}"), this)
             })
             .setNegativeButton("아니오", null)
             .create()
             .show()
 
-        return false
+        return true
     }
 }
