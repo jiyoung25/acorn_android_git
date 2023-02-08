@@ -1,72 +1,70 @@
-package com.example.step18login;
+        package com.example.step18login;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+        import android.content.DialogInterface;
+        import android.content.SharedPreferences;
+        import android.os.AsyncTask;
+        import android.os.Bundle;
+        import android.preference.PreferenceManager;
+        import android.util.Log;
 
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
+        import androidx.appcompat.app.AlertDialog;
+        import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.step18login.databinding.ActivityLoginBinding;
+        import com.example.step18login.databinding.ActivityLoginBinding;
 
-import org.json.JSONObject;
+        import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+        import java.io.BufferedReader;
+        import java.io.InputStreamReader;
+        import java.io.OutputStreamWriter;
+        import java.io.PrintWriter;
+        import java.net.HttpURLConnection;
+        import java.net.URL;
+        import java.util.HashMap;
+        import java.util.Iterator;
+        import java.util.List;
+        import java.util.Map;
+        import java.util.Set;
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
     String sessionId;
     SharedPreferences pref;
-    String id; //로그인 성공시 로그인된 ID를 저장할 field
-
+    String id; //로그인 성공시 로그인된 아이디를 저장할 필드
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        //화면 구성하기
+        binding=ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //필요한 객체의 참조값 얻어와서 필드에 저장
+        pref= PreferenceManager.getDefaultSharedPreferences(this);
+        //저장된 session id 가 있다면 읽어와 본다.
+        sessionId=pref.getString("sessionId", "");
 
-        //필요한 객체의 참조값을 얻어와서 field에 저장함
-        pref = PreferenceManager.getDefaultSharedPreferences(this);
-        //저장된 sessionId가 있다면 읽어와 본다.
-        sessionId = pref.getString("sessionId","");
-
-        binding.loginBtn.setOnClickListener( v-> {
-            //입력한 ID, 비밀번호를 읽어와서
-            String id = binding.inputId.getText().toString();
-            String pwd = binding.inputPwd.getText().toString();
-            //Map에 담는다.
-            Map<String, String> map = new HashMap<>();
-            map.put("id",id);
-            map.put("pwd",pwd);
+        binding.loginBtn.setOnClickListener(v->{
+            //입력한 아이디 비밀번호를 읽어와서
+            String id=binding.inputId.getText().toString();
+            String pwd=binding.inputPwd.getText().toString();
+            //Map 에 담는다.
+            Map<String, String> map=new HashMap<>();
+            map.put("id", id);
+            map.put("pwd", pwd);
 
             new LoginTask().execute(map);
         });
-
-        binding.resetBtn.setOnClickListener( v-> {
+        binding.resetBtn.setOnClickListener(v->{
             binding.inputId.setText("");
             binding.inputPwd.setText("");
         });
     }
-
     class LoginTask extends AsyncTask<Map<String, String>, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(Map<String, String>... params) {
             Map<String, String> param=params[0];
             String queryString="";
+            Log.e("query", queryString);
             if(param!=null){//요청 파리미터가 존재 한다면
                 //서버에 전송할 데이터를 문자열로 구성하기
                 StringBuffer buffer=new StringBuffer();

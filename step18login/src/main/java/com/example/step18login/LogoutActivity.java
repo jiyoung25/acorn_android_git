@@ -29,6 +29,7 @@ public class LogoutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityLogoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
