@@ -5,7 +5,34 @@
       <module name="fail1" target="11" />
       <module name="MyAndroid2.deletemodule" target="11" />
       <module name="MyAndroid2.spep09customview" target="11" />
+      <module name="MyAndroid2.step01activity" target="11" />
+      <module name="MyAndroid2.step01activity2" target="11" />
+      <module name="MyAndroid2.step02layout" target="11" />
+      <module name="MyAndroid2.step03view" target="11" />
+      <module name="MyAndroid2.step04_practice" target="11" />
+      <module name="MyAndroid2.step04activitymove" target="11" />
+      <module name="MyAndroid2.step04activitymove.kotlinactivity" target="11" />
+      <module name="MyAndroid2.step05example" target="11" />
+      <module name="MyAndroid2.step05listview" target="11" />
+      <module name="MyAndroid2.step06customadapter" target="11" />
+      <module name="MyAndroid2.step07fragment" target="11" />
+      <module name="MyAndroid2.step07fragment2" target="11" />
+      <module name="MyAndroid2.step08viewbinding" target="11" />
+      <module name="MyAndroid2.step09customview" target="11" />
+      <module name="MyAndroid2.step09gameview" target="11" />
+      <module name="MyAndroid2.step10viewpager" target="11" />
+      <module name="MyAndroid2.step10viewpager_practice" target="11" />
+      <module name="MyAndroid2.step11bottomnavi" target="11" />
       <module name="MyAndroid2.step11bottomnavi_practice" target="11" />
+      <module name="MyAndroid2.step12broadcastreceiver" target="11" />
+      <module name="MyAndroid2.step13sharedpref" target="11" />
+      <module name="MyAndroid2.step14sqlite" target="11" />
+      <module name="MyAndroid2.step15webview" target="11" />
+      <module name="MyAndroid2.step15webview2" target="11" />
+      <module name="MyAndroid2.step17example" target="11" />
+      <module name="MyAndroid2.step17httprequest" target="11" />
+      <module name="MyAndroid2.step17httprequest2" target="11" />
+      <module name="MyAndroid2.step17httprequest3_kotlin" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
