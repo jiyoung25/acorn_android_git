@@ -33,6 +33,7 @@
       <module name="MyAndroid2.step17httprequest" target="11" />
       <module name="MyAndroid2.step17httprequest2" target="11" />
       <module name="MyAndroid2.step17httprequest3_kotlin" target="11" />
+      <module name="MyAndroid2.step23mp3playerservice" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
